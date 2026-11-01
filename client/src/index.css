@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+a.active hr{
+  display: block;
+}
+
+*{
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
