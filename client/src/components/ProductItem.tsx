@@ -27,7 +27,7 @@ const ProductItem = ({ productData }: ProductItemProps) => {
       to={`/product/${productData._id}`}
       className="text-gray-700 cursor-pointer"
     >
-      <div className="bg-white rounded-2xl overflow-hidden">
+      <div className="bg-white border border-gray-300 rounded-2xl overflow-hidden">
         <img
           src={productData.image[0]}
           alt={productData.name}
