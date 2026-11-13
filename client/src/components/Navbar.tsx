@@ -13,8 +13,11 @@ import { RiContactsBook3Fill } from "react-icons/ri";
 import MenuItem from "./navbar/MenuItem";
 import Logo from "./navbar/Logo";
 import MobileMenu from "./navbar/MobileMenu";
+import { useAppDispatch} from "../app/hooks";
+import { setShowSearch } from "../features/shop/shopSlice";
 
 const Navbar = () => {
+  const dispatch = useAppDispatch();
   const [visible, setVisible] = useState(false);
 
   const navItems = [
@@ -53,7 +56,7 @@ const Navbar = () => {
       </ul>
       {/* search icon */}
       <div className="flex items-center gap-6">
-        <ImSearch className="w-5 h-5 cursor-pointer" />
+        <ImSearch onClick={()=>dispatch(setShowSearch(true))} className="w-5 h-5 cursor-pointer" />
         <div className="group relative">
           <FaRegUserCircle className="w-5 h-5 cursor-pointer border-r-red-500 border-l-yellow-500 border-t-green-500 border-b-blue-500 border rounded-full" />
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">

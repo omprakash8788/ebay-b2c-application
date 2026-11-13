@@ -1,15 +1,18 @@
 import {useMemo, useState } from "react";
-import { useAppSelector } from "../app/hooks";
+import {useAppSelector } from "../app/hooks";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
   const products = useAppSelector((state) => state.shop.products);
-  // console.log(products)
   const [showFilter, setShowFilter] = useState<boolean>(false);
 
-  // const [filterProducts, setFilterProducts] = useState(products);
+const search = useAppSelector((state) => state.shop.search);
+  const showSearch = useAppSelector((state) => state.shop.showSearch);
+
+ 
+
 
   const [category, setCategory] = useState<string[]>([]);
   const [subCategory, setSubCategory] = useState<string[]>([]);
@@ -32,54 +35,12 @@ const Collection = () => {
     }
   };
 
-  // const applyFilter = () => {
-  //   let productCopy = products.slice();
-  //   if (category.length > 0) {
-  //     productCopy = productCopy.filter((item) =>
-  //       category.includes(item.category),
-  //     );
-  //   }
-
-  //   if (subCategory.length > 0) {
-  //     productCopy = productCopy.filter((item) =>
-  //       subCategory.includes(item.subCategory),
-  //     );
-  //   }
-
-  //   setFilterProducts(productCopy);
-  // };
-
-  // const sortProduct = () => {
-  //   const filterProductCopy = filterProducts.slice();
-  //   switch (sortType) {
-  //     case "low-high":
-  //       setFilterProducts(filterProductCopy.sort((a, b) => a.price - b.price));
-  //       break;
-
-  //     case "high-low":
-  //       setFilterProducts(filterProductCopy.sort((a, b) => b.price - a.price));
-  //       break;
-
-  //     default:
-  //       applyFilter();
-  //       break;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   setFilterProducts(products);
-  // }, []);
-
-  // useEffect(() => {
-  //   applyFilter();
-  // }, [category, subCategory]);
-
-  // useEffect(() => {
-  //   sortProduct();
-  // }, [sortType]);
-  
    const filterProducts = useMemo(() => {
     let productCopy = [...products];
+
+     if(showSearch && search){
+      productCopy = productCopy.filter(item=>item.name.toLowerCase().includes(search.toLowerCase()))
+     }
 
     // Category filtering
     if (category.length > 0) {
@@ -110,7 +71,7 @@ const Collection = () => {
     }
 
     return productCopy;
-  }, [products, category, subCategory, sortType]);
+  }, [products, category, subCategory, sortType, search, showSearch]);
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10">
       {/* Filter option */}
